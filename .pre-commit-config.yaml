@@ -1,0 +1,61 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.3.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-merge-conflict
+      - id: check-case-conflict
+      - id: check-json
+      - id: check-toml
+      - id: check-yaml
+      - id: pretty-format-json
+        args: [--autofix, --no-ensure-ascii, --no-sort-keys]
+      - id: check-ast
+      - id: debug-statements
+      - id: check-docstring-first
+  - repo: https://github.com/pre-commit/pygrep-hooks
+    rev: v1.9.0
+    hooks:
+      - id: python-check-mock-methods
+      - id: python-use-type-annotations
+      - id: python-check-blanket-noqa
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.2.2
+    hooks:
+      - id: pyupgrade
+        args: [--py38-plus]
+  - repo: https://github.com/PyCQA/flake8
+    rev: 5.0.4
+    hooks:
+      - id: flake8
+        additional_dependencies:
+          [
+            flake8-annotations==2.9.1,
+            flake8-broken-line==0.6.0,
+            flake8-bugbear==22.10.27,
+            flake8-comprehensions==3.10.1,
+            flake8-simplify==0.19.3,
+            flake8-tidy-imports==4.8.0,
+            flake8-type-checking==2.2.0,
+            flake8-typing-imports==1.14.0,
+            flake8-use-fstring==1.4,
+            pep8-naming==0.13.2,
+          ]
+  - repo: https://github.com/pycqa/isort
+    rev: 5.10.1
+    hooks:
+      - id: isort
+        name: isort (python)
+        types: [python]
+        args: [--add-import, from __future__ import annotations]
+      - id: isort
+        name: isort (pyi)
+        types: [pyi]
+        args: [--lines-after-imports, "-1"]
+  - repo: https://github.com/psf/black
+    rev: 22.10.0
+    hooks:
+      - id: black

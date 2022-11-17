@@ -1,0 +1,53 @@
+[tool.poetry]
+name = "poetry-plugin-pyenv"
+version = "0.1.0"
+description = ""
+authors = ["tjquillan <tjquillan@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{ include = "poetry_plugin_pyenv" }]
+
+[tool.poetry.plugins."poetry.application.plugin"]
+demo = "poetry_plugin_pyenv.plugin:PyenvPlugin"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+poetry = "^1.2"
+
+[tool.poetry.group.dev.dependencies]
+black = "^22.10.0"
+flake8 = "^5.0.4"
+flake8-annotations = "^2.9.1"
+flake8-broken-line = "^0.6.0"
+flake8-bugbear = "^22.10.27"
+flake8-comprehensions = "^3.10.1"
+flake8-simplify = "^0.19.3"
+flake8-tidy-imports = "^4.8.0"
+flake8-type-checking = "^2.2.0"
+flake8-typing-imports = "^1.14.0"
+flake8-use-fstring = "^1.4"
+ipython = "^8.6.0"
+isort = "^5.10.1"
+mypy = "^0.991"
+pep8-naming = "^0.13.2"
+pre-commit = "^2.20.0"
+
+[tool.black]
+target-version = ["py38"]
+
+[tool.isort]
+py_version = 38
+profile = "black"
+force_single_line = true
+combine_as_imports = true
+lines_between_types = 1
+lines_after_imports = 2
+
+[tool.mypy]
+strict = true
+show_error_codes = true
+namespace_packages = true
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
