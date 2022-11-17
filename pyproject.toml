@@ -23,7 +23,7 @@ packages = [{ include = "poetry_plugin_pyenv" }]
 demo = "poetry_plugin_pyenv.plugin:PyenvPlugin"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.7"
 poetry = "^1.2"
 
 [tool.poetry.group.dev.dependencies]
