@@ -39,11 +39,10 @@ class PyenvPlugin(ApplicationPlugin):
     ) -> None:
 
         from poetry.console.commands.env_command import EnvCommand
-        from poetry.console.commands.self.self_command import SelfCommand
 
         command = event.command
 
-        if not isinstance(command, EnvCommand) or isinstance(command, SelfCommand):
+        if not isinstance(command, EnvCommand):
             return
 
         if command._env is not None:
