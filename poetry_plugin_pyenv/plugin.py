@@ -22,21 +22,7 @@ class PyenvPlugin(ApplicationPlugin):
         return PyenvPlugin()
 
     def activate(self, application: Application) -> None:
-        # The poetry property requires a pyproject.toml to be in the CWD or its parents.
-        # If this fails we have no buisness running anyway so just return.
-        try:
-            poetry = application.poetry
-        except RuntimeError:
-            return
-
-        prefer_active_python: bool = poetry.config.get(
-            "virtualenvs.prefer-active-python"
-        )
-
-        if (
-            prefer_active_python
-            and (event_dispatcher := application.event_dispatcher) is not None
-        ):
+        if (event_dispatcher := application.event_dispatcher) is not None:
             event_dispatcher.add_listener(COMMAND, self.on_env_command, 1)
 
     def on_env_command(
@@ -52,6 +38,13 @@ class PyenvPlugin(ApplicationPlugin):
             return
 
         if command._env is not None:
+            return
+
+        poetry = command.poetry
+        prefer_active_python: bool = poetry.config.get(
+            "virtualenvs.prefer-active-python"
+        )
+        if not prefer_active_python:
             return
 
         from poetry.utils.env import EnvManager
