@@ -58,6 +58,6 @@ def get_remote_versions() -> list[Version]:
     result: CompletedProcess[bytes] = subprocess.run(
         ["pyenv", "install", "--list"], check=True, capture_output=True
     )
-    output: str = result.stdout.decode("utf-8").strip()
+    output: str = result.stdout.decode("utf-8")
     matched_versions: Iterator[Match[str]] = re.finditer(PYTHON_VERSION_REGEX, output)
-    return [Version.parse(v.group()) for v in matched_versions]
+    return [Version.parse(v.group(1)) for v in matched_versions]
