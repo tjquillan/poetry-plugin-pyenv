@@ -23,9 +23,9 @@ class PyenvPlugin(ApplicationPlugin):
 
     def activate(self, application: Application) -> None:
         if (event_dispatcher := application.event_dispatcher) is not None:
-            event_dispatcher.add_listener(COMMAND, self.on_env_command, 1)
+            event_dispatcher.add_listener(COMMAND, self.configure_pyenv, 1)
 
-    def on_env_command(
+    def configure_pyenv(
         self, event: ConsoleCommandEvent, event_name: str, dispatcher: EventDispatcher
     ) -> None:
 
