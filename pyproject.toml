@@ -43,6 +43,14 @@ isort = "^5.10.1"
 mypy = "^0.991"
 pep8-naming = "^0.13.2"
 pre-commit = "^2.20.0"
+pytest = "^7.2.0"
+pytest-mock = "^3.10.0"
+
+[tool.poetry.group.ci]
+optional = true
+
+[tool.poetry.group.ci.dependencies]
+pytest-github-actions-annotate-failures = "^0.1.7"
 
 [tool.black]
 target-version = ["py38"]
