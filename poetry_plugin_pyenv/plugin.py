@@ -28,8 +28,10 @@ class PyenvPlugin(ApplicationPlugin):
             "virtualenvs.prefer-active-python"
         )
 
-        event_dispatcher = application.event_dispatcher
-        if prefer_active_python and event_dispatcher is not None:
+        if (
+            prefer_active_python
+            and (event_dispatcher := application.event_dispatcher) is not None
+        ):
             event_dispatcher.add_listener(COMMAND, self.on_env_command, 1)
 
     def on_env_command(
@@ -52,10 +54,9 @@ class PyenvPlugin(ApplicationPlugin):
         io = event.io
         manager = EnvManager(poetry)
 
-        local_version = pyenv.get_local_version()
-        if not local_version or not poetry.package.python_constraint.allows(
-            local_version
-        ):
+        if not (
+            local_version := pyenv.get_local_version()
+        ) or not poetry.package.python_constraint.allows(local_version):
             local_versions = self.get_allowed_versions(poetry)
             local_version = local_versions[-1]
 
