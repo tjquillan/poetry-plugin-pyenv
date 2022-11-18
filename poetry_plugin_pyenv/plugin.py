@@ -23,6 +23,7 @@ class PyenvPlugin(ApplicationPlugin):
 
     def activate(self, application: Application) -> None:
         if (event_dispatcher := application.event_dispatcher) is not None:
+            # Insert with priority higher than Application.configure_env hook
             event_dispatcher.add_listener(COMMAND, self.configure_pyenv, 1)
 
     def configure_pyenv(
