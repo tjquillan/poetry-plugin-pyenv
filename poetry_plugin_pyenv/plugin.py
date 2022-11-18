@@ -54,20 +54,21 @@ class PyenvPlugin(ApplicationPlugin):
         io = event.io
         manager = EnvManager(poetry)
 
+        create = False
         if not (
             local_version := pyenv.get_local_version()
         ) or not poetry.package.python_constraint.allows(local_version):
             local_versions = self.get_allowed_versions(poetry)
             local_version = local_versions[-1]
+            create = True
 
-            pyenv.ensure_installed(local_version)
+        pyenv.ensure_installed(local_version)
+        if create:
             pyenv.set_local_version(local_version)
-            env = manager.activate(local_version.text, io)
-        else:
-            pyenv.ensure_installed(local_version)
-            env = manager.create_venv(io)
+        env = manager.create_venv(io, force=create)
 
         command.set_env(env)
+
         if env.is_venv() and io.is_verbose():
             io.write_line(f"Using virtualenv: <comment>{env.path}</>")
 
