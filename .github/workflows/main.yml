@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 env:
-  POETRY_HOME: $HOME/.local/share/pypoetry
+  POETRY_HOME: ${{ env.HOME }}/.local/share/pypoetry
 
 jobs:
   tests:
