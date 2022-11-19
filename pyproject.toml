@@ -68,6 +68,13 @@ lines_after_imports = 2
 strict = true
 show_error_codes = true
 namespace_packages = true
+files = ["poetry_plugin_pyenv", "tests"]
+
+[[tool.mypy.overrides]]
+module = [
+  'cleo.*',
+]
+ignore_missing_imports = true
 
 [build-system]
 requires = ["poetry-core"]

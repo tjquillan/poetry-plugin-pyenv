@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 
 # See: https://regex101.com/r/Bz2g17/1
 PYTHON_VERSION_REGEX: Pattern[str] = re.compile(
-    r"^\s*(\d+.*)\s*$", re.IGNORECASE | re.MULTILINE
+    r"^\s*(\d+\S*)\s*$", re.IGNORECASE | re.MULTILINE
 )
 
 
