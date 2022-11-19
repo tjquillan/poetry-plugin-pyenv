@@ -35,6 +35,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - run: echo "$POETRY_HOME"
+
       - name: Bootstrap poetry
         run: |
           curl -sL https://install.python-poetry.org | python3 - -y ${{ matrix.bootstrap-args }}
