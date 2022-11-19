@@ -40,7 +40,10 @@ jobs:
           curl -sL https://install.python-poetry.org | python3 - -y ${{ matrix.bootstrap-args }}
           echo "$POETRY_HOME/bin" >> $GITHUB_PATH
 
-      - run: echo $PATH
+      - name: DEBUG
+        run: |
+          echo $PATH
+          ls "$POETRY_HOME/bin"
 
       - name: Configure poetry
         run: |
