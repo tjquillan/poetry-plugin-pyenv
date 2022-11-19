@@ -16,9 +16,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Set POETRY_HOME
+        run: echo "POETRY_HOME=$HOME/.local/share/pypoetry" >> $GITHUB_ENV
+
       - name: Bootstrap poetry
         run: |
-          echo "POETRY_HOME=$HOME/.local/share/pypoetry" >> $GITHUB_ENV
           curl -sL https://install.python-poetry.org | python3 - -y ${{ matrix.bootstrap-args }}
           echo "$POETRY_HOME/bin" >> $GITHUB_PATH
 
