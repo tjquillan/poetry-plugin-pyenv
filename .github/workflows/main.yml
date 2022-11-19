@@ -32,13 +32,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
-        id: python
-        with:
-          python-version: ${{ matrix.python-version }}
-          cache: "poetry"
-
       - name: Bootstrap poetry
         run: |
           curl -sL https://install.python-poetry.org | python - -y ${{ matrix.bootstrap-args }}
@@ -52,6 +45,13 @@ jobs:
 
       - name: Configure poetry
         run: poetry config virtualenvs.in-project true
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        id: python
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: "poetry"
 
       - name: Install dependencies
         run: poetry install --with ci
