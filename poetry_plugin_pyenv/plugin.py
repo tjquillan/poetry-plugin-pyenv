@@ -9,7 +9,7 @@ from . import pyenv
 
 
 if TYPE_CHECKING:
-    from cleo.events.console_command_event import ConsoleCommandEvent
+    from cleo.events.event import Event
     from cleo.events.event_dispatcher import EventDispatcher
     from poetry.console.application import Application
     from poetry.core.constraints.version import Version
@@ -27,11 +27,15 @@ class PyenvPlugin(ApplicationPlugin):
             event_dispatcher.add_listener(COMMAND, self.configure_pyenv, 1)
 
     def configure_pyenv(
-        self, event: ConsoleCommandEvent, event_name: str, dispatcher: EventDispatcher
+        self, event: Event, event_name: str, dispatcher: EventDispatcher
     ) -> None:
 
+        from cleo.events.console_command_event import ConsoleCommandEvent
         from poetry.console.commands.env_command import EnvCommand
         from poetry.console.commands.self.self_command import SelfCommand
+
+        if not isinstance(event, ConsoleCommandEvent):
+            return
 
         command = event.command
 
@@ -52,7 +56,7 @@ class PyenvPlugin(ApplicationPlugin):
 
         poetry = command.poetry
         io = event.io
-        manager = EnvManager(poetry)
+        manager = EnvManager(poetry, io=io)
 
         create = False
         if not (
@@ -65,7 +69,7 @@ class PyenvPlugin(ApplicationPlugin):
         pyenv.ensure_installed(local_version)
         if create:
             pyenv.set_local_version(local_version)
-        env = manager.create_venv(io, force=create)
+        env = manager.create_venv(force=create)
 
         command.set_env(env)
 
