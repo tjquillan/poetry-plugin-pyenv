@@ -24,7 +24,7 @@ demo = "poetry_plugin_pyenv.plugin:PyenvPlugin"
 
 [tool.poetry.dependencies]
 python = "^3.8"
-poetry = "^1.2"
+poetry = "^1.3"
 
 [tool.poetry.group.dev.dependencies]
 black = "^22.10.0"
