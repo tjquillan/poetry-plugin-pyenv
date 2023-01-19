@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "poetry-plugin-pyenv"
-version = "0.1.4"
+version = "0.2.0"
 description = ""
 authors = ["tjquillan <tjquillan@gmail.com>"]
 license = "MIT"
