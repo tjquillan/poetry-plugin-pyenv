@@ -54,7 +54,7 @@ def get_remote_versions() -> list[Version]:
     versions: list[Version] = []
     for line in output.splitlines():
         try:
-            versions.append(Version.parse(line))
+            versions.append(Version.parse(line.strip()))
         except:
             pass
     return versions
