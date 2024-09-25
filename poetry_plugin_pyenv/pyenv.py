@@ -9,16 +9,7 @@ from poetry.core.constraints.version import Version
 
 
 if TYPE_CHECKING:
-    from re import Match
-    from re import Pattern
     from subprocess import CompletedProcess
-    from typing import Iterator
-
-
-# See: https://regex101.com/r/Bz2g17/1
-PYTHON_VERSION_REGEX: Pattern[str] = re.compile(
-    r"^\s*(\d+\S*)\s*$", re.IGNORECASE | re.MULTILINE
-)
 
 
 def is_installed(version: Version) -> bool:
@@ -59,5 +50,11 @@ def get_remote_versions() -> list[Version]:
         ["pyenv", "install", "--list"], check=True, capture_output=True
     )
     output: str = result.stdout.decode("utf-8")
-    matched_versions: Iterator[Match[str]] = re.finditer(PYTHON_VERSION_REGEX, output)
-    return [Version.parse(v.group(1)) for v in matched_versions]
+
+    versions: list[Version] = []
+    for line in output.splitlines():
+        try:
+            versions.append(Version.parse(line.strip()))
+        except:
+            pass
+    return versions
